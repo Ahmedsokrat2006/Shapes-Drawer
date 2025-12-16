@@ -17,6 +17,7 @@ public class Main extends JPanel {
     private static double totalCubesPerimeter = 0;
     private static double totalVolume = 0;
     private static int cubesCount = 0;
+    private Color color = new Color(255, 255, 255);
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -36,7 +37,7 @@ public class Main extends JPanel {
             drawCube(g,currentShape);
         }
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.setFont(new Font(Font.SERIF,Font.BOLD,24));
         g.drawString("Shape " + (i + 1) + " of " + shapesList.size(), 20, 20);
     }
@@ -47,14 +48,15 @@ public class Main extends JPanel {
         Circle c = (Circle) currentShape;
         int size = (int) c.getRadius();
         size *= 3;
-        g.setColor(Color.BLUE);
+        g.setColor(color);
         g.drawOval(x, y, size, size);
+
+        g.setColor(Color.WHITE);
         g.setFont(new Font(Font.MONOSPACED,Font.BOLD,16));
         g.drawString("Circle Radius = " + c.getRadius(), x-130, y - 50);
         g.drawString("Circle Area = " + String.format("%.2f", c.getArea()),x-130,y-30);
         g.drawString("Circle Perimeter = " + String.format("%.2f", c.getPerimeter()),x-130,y-10);
 
-        g.setColor(Color.BLACK);
         g.setFont(new Font(Font.MONOSPACED,Font.BOLD,20));
         g.drawString("How to Draw:",x - 130, y + size + 20);
         g.setFont(new Font(Font.SERIF,0,16));
@@ -68,7 +70,7 @@ public class Main extends JPanel {
         Cube c = (Cube) currentShape;
         int size = (int) c.getSide();
         size = 3 * size / 2;
-        g.setColor(Color.RED);
+        g.setColor(color);
 
         g.drawRect(x, y, size, size);
         g.drawRect(x + size / 2, y + size / 2, size, size);
@@ -77,16 +79,22 @@ public class Main extends JPanel {
         g.drawLine(x, y + size, x + size / 2, y + 3 * size / 2);
         g.drawLine(x + size, y + size, x + 3 * size / 2, y + 3 * size / 2);
 
+        g.setColor(Color.WHITE);
         g.setFont(new Font(Font.MONOSPACED,Font.BOLD,16));
         g.drawString("Cube Side = " + c.getSide(), x-130, y - 70);
         g.drawString("Cube Area = " + String.format("%.2f", c.getArea()), x-130, y - 50);
         g.drawString("Cube Perimeter = " + String.format("%.2f", c.getPerimeter()), x-130, y - 30);
         g.drawString("Cube Volume = " + String.format("%.2f", c.getVolume()) , x-130, y - 10);
-        g.setColor(Color.BLACK);
+
         g.setFont(new Font(Font.MONOSPACED,Font.BOLD,20));
         g.drawString("How to Draw:",x - 130, y + 3 * size / 2 + 20);
         g.setFont(new Font(Font.SERIF,0,16));
         g.drawString(c.howToDraw(),x - 130, y + 3 * size / 2 + 40);
+    }
+
+    public void setColor(Color color){
+        this.color = color;
+        repaint();
     }
 
     public void nextShape() {
