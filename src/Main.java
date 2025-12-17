@@ -136,13 +136,24 @@ public class Main extends JPanel {
             throw new RuntimeException(e);
         }
     }
-    private static void runInputFile(){
+
+    private static void runInputFile() {
         try {
             Desktop.getDesktop().open(inputFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private static boolean invalidInputErrorMessage(int i){
+        int n = JOptionPane.showOptionDialog(null, "Invalid input in shape number " + (i + 1), "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
+        if (n == 1) {
+            runInputFile();
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         try {
             Scanner input = new Scanner(inputFile);
@@ -160,22 +171,40 @@ public class Main extends JPanel {
                 for (int i = 0; i < size; i++) {
                     if (input.hasNext()) {
                         String type = input.next();
-                        double val = input.nextDouble();
-                        if (type.equalsIgnoreCase("circle")) {
-                            Circle c = new Circle(val);
-                            shapesList.add(c);
-                            totalArea += c.getArea();
-                            totalPerimeter += c.getPerimeter();
-                        } else if (type.equalsIgnoreCase("cube")) {
-                            Cube c = new Cube(val);
-                            shapesList.add(c);
-                            cubesCount++;
-                            totalArea += c.getArea();
-                            totalCubesArea += c.getArea();
-                            totalPerimeter += c.getPerimeter();
-                            totalCubesPerimeter += c.getPerimeter();
-                            totalVolume += c.getVolume();
+                        if (input.hasNextDouble()) {
+                            double val = input.nextDouble();
+                            if (val <= 0) {
+                                if (invalidInputErrorMessage(i)){
+                                    return;
+                                }else{
+                                    continue;
+                                }
+                            }
+                            if (type.equalsIgnoreCase("circle")) {
+                                Circle c = new Circle(val);
+                                shapesList.add(c);
+                                totalArea += c.getArea();
+                                totalPerimeter += c.getPerimeter();
+                            } else if (type.equalsIgnoreCase("cube")) {
+                                Cube c = new Cube(val);
+                                shapesList.add(c);
+                                cubesCount++;
+                                totalArea += c.getArea();
+                                totalCubesArea += c.getArea();
+                                totalPerimeter += c.getPerimeter();
+                                totalCubesPerimeter += c.getPerimeter();
+                                totalVolume += c.getVolume();
+                            } else {
+                                if (invalidInputErrorMessage(i)){
+                                    return;
+                                }
+                            }
+                        }else{
+                            if (invalidInputErrorMessage(i)){
+                                return;
+                            }
                         }
+
                     }
                 }
             }
