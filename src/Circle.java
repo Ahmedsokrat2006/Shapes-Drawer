@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Circle extends Shape{
     private double radius;
 
@@ -36,6 +38,6 @@ public class Circle extends Shape{
 
     @Override
     public String toString() {
-        return "Circle [radius=" + radius + ", color=" + getColor() + ", created=" + getDateCreated() + "]";
+        return "Circle \nRadius: " + radius + "\nArea: " + String.format("%.2f",getArea()) + "\nPerimeter: " + String.format("%.2f",getPerimeter()) + "\nColor: " + getColor() + "\nCreated: " + getDateCreated();
     }
 }

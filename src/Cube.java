@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Cube extends ThreeDShape{
     private double side;
 
@@ -41,6 +43,6 @@ public class Cube extends ThreeDShape{
 
     @Override
     public String toString() {
-        return "Cube [side=" + side + ", color=" + getColor() + ", created=" + getDateCreated() + "]";
+        return "Cube \nSide: " + side + "\nArea: " + String.format("%.2f",getArea()) + "\nPerimeter: " + String.format("%.2f",getPerimeter()) + "\nVolume: " + String.format("%.2f",getVolume()) + "\nColor: " + getColor() + "\nCreated: " + getDateCreated();
     }
 }

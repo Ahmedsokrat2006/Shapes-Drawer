@@ -74,7 +74,7 @@ public class DrawFrame extends JFrame {
             } else if (e.getSource() == addAreas) {
                 drawPanel.addAreas();
             } else if (e.getSource() instanceof JButton) {
-                drawPanel.setColor(((JButton) e.getSource()).getForeground());
+                drawPanel.setColor(((JButton) e.getSource()).getForeground(),((JButton) e.getSource()).getText());
             }
         }
     }

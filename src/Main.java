@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main extends JPanel {
@@ -17,7 +18,10 @@ public class Main extends JPanel {
     private static double totalCubesPerimeter = 0;
     private static double totalVolume = 0;
     private static int cubesCount = 0;
-    private Color color = new Color(255, 255, 255);
+    private Color color = Color.WHITE;
+    private String colorName = "White";
+    private final int x = 150;
+    private final int y = 190;
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -42,10 +46,8 @@ public class Main extends JPanel {
         g.drawString("Shape " + (i + 1) + " of " + shapesList.size(), 20, 20);
     }
     private void drawCircle(Graphics g,Drawable currentShape){
-        int x = 150;
-        int y = 120;
-
         Circle c = (Circle) currentShape;
+        c.setColor(colorName);
         int size = (int) c.getRadius();
         size *= 3;
         g.setColor(color);
@@ -53,21 +55,13 @@ public class Main extends JPanel {
 
         g.setColor(Color.WHITE);
         g.setFont(new Font(Font.MONOSPACED,Font.BOLD,16));
-        g.drawString("Circle Radius = " + c.getRadius(), x-130, y - 50);
-        g.drawString("Circle Area = " + String.format("%.2f", c.getArea()),x-130,y-30);
-        g.drawString("Circle Perimeter = " + String.format("%.2f", c.getPerimeter()),x-130,y-10);
-
-        g.setFont(new Font(Font.MONOSPACED,Font.BOLD,20));
-        g.drawString("How to Draw:",x - 130, y + size + 20);
-        g.setFont(new Font(Font.SERIF,0,16));
-        g.drawString(c.howToDraw(),x - 130, y + size + 40);
+        printData(g,c);
+        printHowToDraw(g,c,size);
     }
 
     private void drawCube(Graphics g, Drawable currentShape){
-        int x = 150;
-        int y = 120;
-
         Cube c = (Cube) currentShape;
+        c.setColor(colorName);
         int size = (int) c.getSide();
         size = 3 * size / 2;
         g.setColor(color);
@@ -81,19 +75,27 @@ public class Main extends JPanel {
 
         g.setColor(Color.WHITE);
         g.setFont(new Font(Font.MONOSPACED,Font.BOLD,16));
-        g.drawString("Cube Side = " + c.getSide(), x-130, y - 70);
-        g.drawString("Cube Area = " + String.format("%.2f", c.getArea()), x-130, y - 50);
-        g.drawString("Cube Perimeter = " + String.format("%.2f", c.getPerimeter()), x-130, y - 30);
-        g.drawString("Cube Volume = " + String.format("%.2f", c.getVolume()) , x-130, y - 10);
 
-        g.setFont(new Font(Font.MONOSPACED,Font.BOLD,20));
-        g.drawString("How to Draw:",x - 130, y + 3 * size / 2 + 20);
-        g.setFont(new Font(Font.SERIF,0,16));
-        g.drawString(c.howToDraw(),x - 130, y + 3 * size / 2 + 40);
+        printData(g,c);
+        printHowToDraw(g,c,3 * size / 2);
     }
 
-    public void setColor(Color color){
+    private void printHowToDraw(Graphics g, Drawable c, int size){
+        g.setFont(new Font(Font.MONOSPACED,Font.BOLD,20));
+        g.drawString("How to Draw:",x - 130, y + size + 20);
+        g.setFont(new Font(Font.SERIF,0,16));
+        g.drawString(c.howToDraw(),x - 130, y + size + 40);
+    }
+    private void printData(Graphics g,Drawable c){
+        String[] text = c.toString().split("\n");
+        for(int i = 0;i<text.length;i++){
+            g.drawString(text[i], x-130, y - (140 - i*20));
+        }
+    }
+
+    public void setColor(Color color,String colorName){
         this.color = color;
+        this.colorName = colorName;
         repaint();
     }
 
@@ -144,7 +146,6 @@ public class Main extends JPanel {
     }
 
     public static void main(String[] args) {
-
         try {
             Scanner input = new Scanner(inputFile);
             if (input.hasNextInt()) {
@@ -171,7 +172,6 @@ public class Main extends JPanel {
                     }
                 }
             }
-
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,"No Input File Found");
             return;
