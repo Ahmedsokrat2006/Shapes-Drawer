@@ -56,6 +56,11 @@ public class DrawFrame extends JFrame {
         add(drawPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
         add(colorButtonPanel, BorderLayout.EAST);
+
+        java.net.URL iconURL = getClass().getResource("/icon.png");
+        if (iconURL != null) {
+            setIconImage(new ImageIcon(iconURL).getImage());
+        }
         setVisible(true);
     }
 
@@ -74,7 +79,7 @@ public class DrawFrame extends JFrame {
             } else if (e.getSource() == addAreas) {
                 drawPanel.addAreas();
             } else if (e.getSource() instanceof JButton) {
-                drawPanel.setColor(((JButton) e.getSource()).getForeground(),((JButton) e.getSource()).getText());
+                drawPanel.setColor(((JButton) e.getSource()).getForeground(), ((JButton) e.getSource()).getText());
             }
         }
     }

@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public abstract class ThreeDShape extends Shape{
     public ThreeDShape(){super();}
     public ThreeDShape(String color){super(color);}

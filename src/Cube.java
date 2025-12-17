@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class Cube extends ThreeDShape{
     private double side;
 
