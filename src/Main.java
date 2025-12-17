@@ -154,18 +154,25 @@ public class Main extends JPanel {
         return false;
     }
 
+    private static void inputFileError(String message){
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+        runInputFile();
+    }
+
     public static void main(String[] args) {
         try {
             Scanner input = new Scanner(inputFile);
             if (input.hasNextInt()) {
                 int size = input.nextInt();
                 if (size < 0) {
-                    JOptionPane.showMessageDialog(null, "Are You Serious?????!!!!! (You Can't Enter Negative Number of Shapes)", "Error", JOptionPane.ERROR_MESSAGE);
-                    runInputFile();
+                    inputFileError("Are You Serious?????!!!!! (You Can't Enter Negative Number of Shapes)");
                     return;
                 } else if (size == 0) {
-                    JOptionPane.showMessageDialog(null, "You Can't Enter 0 Shapes!!", "Error", JOptionPane.ERROR_MESSAGE);
-                    runInputFile();
+                    inputFileError("You Can't Enter 0 Shapes!!");
+                    return;
+                }
+                if(size > 99_999_999){
+                    inputFileError("Max number of shapes is 99,999,999");
                     return;
                 }
                 for (int i = 0; i < size; i++) {
@@ -180,12 +187,12 @@ public class Main extends JPanel {
                                     continue;
                                 }
                             }
-                            if (type.equalsIgnoreCase("circle")) {
+                            if (type.equalsIgnoreCase("circle") && val <= 150) {
                                 Circle c = new Circle(val);
                                 shapesList.add(c);
                                 totalArea += c.getArea();
                                 totalPerimeter += c.getPerimeter();
-                            } else if (type.equalsIgnoreCase("cube")) {
+                            } else if (type.equalsIgnoreCase("cube") && val <= 200) {
                                 Cube c = new Cube(val);
                                 shapesList.add(c);
                                 cubesCount++;
@@ -195,6 +202,15 @@ public class Main extends JPanel {
                                 totalCubesPerimeter += c.getPerimeter();
                                 totalVolume += c.getVolume();
                             } else {
+                                if(val >= 150){
+                                    int n = JOptionPane.showOptionDialog(null, "Large input in shape number " + (i + 1) + " (Max input for cube 200 and circle 150)", "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
+                                    if (n == 1) {
+                                        runInputFile();
+                                        return;
+                                    }else {
+                                        continue;
+                                    }
+                                }
                                 if (invalidInputErrorMessage(i)){
                                     return;
                                 }
@@ -207,14 +223,16 @@ public class Main extends JPanel {
 
                     }
                 }
+            }else {
+                inputFileError("Invalid number of shapes");
+                return;
             }
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "No Input File Found", "File Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (shapesList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No shapes found in input.txt", "Error", JOptionPane.ERROR_MESSAGE);
-            runInputFile();
+            inputFileError("No shapes found in input.txt");
             return;
         }
         new DrawFrame();

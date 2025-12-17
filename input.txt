@@ -1,9 +1,9 @@
 300
-cube 45
-cube 50
-cube 55
-cube 60
-circle 89.12
+cube 200
+circle 150
+cube 150
+circle 100
+circle 140.44
 cube 45.33
 circle 5.67
 cube 9.88
@@ -15,8 +15,8 @@ circle 2.34
 cube 99.99
 circle 44.56
 cube 22.33
-circle 150.78
-cube 200.45
+circle 150.00
+cube 200.00
 circle 8.76
 cube 3.45
 circle 55.67
@@ -186,8 +186,8 @@ cube 9.78
 circle 10.89
 cube 11.90
 circle 111.11
-cube 222.22
-circle 333.33
+cube 199.22
+circle 149.33
 cube 44.44
 circle 5.55
 cube 6.66
