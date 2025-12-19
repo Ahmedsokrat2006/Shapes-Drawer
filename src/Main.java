@@ -220,7 +220,7 @@ public class Main extends JPanel {
                                 totalCubesPerimeter += c.getPerimeter();
                                 totalVolume += c.getVolume();
                             } else {
-                                if(val >= 150){
+                                if(type.equalsIgnoreCase("circle") && val > 150 || type.equalsIgnoreCase("cube") && val > 200){
                                     playSound("/Error.wav");
                                     int n = JOptionPane.showOptionDialog(null, "Large input in shape number " + (i + 1) + " (Max input for cube 200 and circle 150)", "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
                                     if (n == 1) {
