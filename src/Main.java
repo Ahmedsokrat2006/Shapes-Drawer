@@ -238,6 +238,7 @@ public class Main extends JPanel {
                             if (invalidInputErrorMessage(i)){
                                 return;
                             }
+                            input.nextLine();
                         }
 
                     }
