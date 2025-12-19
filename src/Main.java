@@ -1,3 +1,5 @@
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -92,6 +94,7 @@ public class Main extends JPanel {
     public void setColor(Color color, String colorName) {
         this.color = color;
         this.colorName = colorName;
+        playSound("/Success.wav");
         repaint();
     }
 
@@ -101,6 +104,7 @@ public class Main extends JPanel {
         } else {
             i = 0;
         }
+        playSound("/Pew.wav");
         repaint();
     }
 
@@ -110,12 +114,14 @@ public class Main extends JPanel {
         } else {
             i = shapesList.size() - 1;
         }
+        playSound("/Quack.wav");
         repaint();
     }
 
-    public void addAreas() {
+    public void addData() {
         try {
             PrintWriter writer = new PrintWriter(outputFile);
+            playSound("/ta-da!.wav");
             writer.println("Cubes count: " + cubesCount);
             writer.println("Circles count: " + (shapesList.size() - cubesCount));
             writer.printf("\nSum of all Areas: %.2f", totalArea);
@@ -129,7 +135,7 @@ public class Main extends JPanel {
                 writer.printf("\n\nSum of circles Area: %.2f", totalArea - totalCubesArea);
                 writer.printf("\nSum of circles Perimeter: %.2f", totalPerimeter - totalCubesPerimeter);
             }
-            JOptionPane.showMessageDialog(null, "Sum of areas added to the File successfully :)");
+            JOptionPane.showMessageDialog(null, "Data Added To The File Successfully :)");
             writer.close();
             Desktop.getDesktop().open(outputFile);
         } catch (Exception e) {
@@ -145,7 +151,18 @@ public class Main extends JPanel {
         }
     }
 
+    public static void playSound(String soundFileName) {
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(Main.class.getResource(soundFileName)));
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static boolean invalidInputErrorMessage(int i){
+        playSound("/Error.wav");
         int n = JOptionPane.showOptionDialog(null, "Invalid input in shape number " + (i + 1), "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
         if (n == 1) {
             runInputFile();
@@ -155,6 +172,7 @@ public class Main extends JPanel {
     }
 
     private static void inputFileError(String message){
+        playSound("/Error.wav");
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
         runInputFile();
     }
@@ -167,8 +185,8 @@ public class Main extends JPanel {
                 if (size < 0) {
                     inputFileError("Are You Serious?????!!!!! (You Can't Enter Negative Number of Shapes)");
                     return;
-                } else if (size == 0) {
-                    inputFileError("You Can't Enter 0 Shapes!!");
+                } else if (size < 2) {
+                    inputFileError("Number of Shapes Must Be More than or Equal 2 !!");
                     return;
                 }
                 if(size > 99_999_999){
@@ -203,6 +221,7 @@ public class Main extends JPanel {
                                 totalVolume += c.getVolume();
                             } else {
                                 if(val >= 150){
+                                    playSound("/Error.wav");
                                     int n = JOptionPane.showOptionDialog(null, "Large input in shape number " + (i + 1) + " (Max input for cube 200 and circle 150)", "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
                                     if (n == 1) {
                                         runInputFile();
@@ -228,13 +247,15 @@ public class Main extends JPanel {
                 return;
             }
         } catch (FileNotFoundException e) {
+            playSound("/Error.wav");
             JOptionPane.showMessageDialog(null, "No Input File Found", "File Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (shapesList.isEmpty()) {
-            inputFileError("No shapes found in input.txt");
+        if (shapesList.size() < 2) {
+            inputFileError("Number of Shapes Must Be More than or Equal 2 !!");
             return;
         }
+        playSound("/Wow.wav");
         new DrawFrame();
     }
 }

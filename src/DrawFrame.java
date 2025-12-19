@@ -8,7 +8,7 @@ public class DrawFrame extends JFrame {
     private final Main drawPanel;
     private final JButton btnPrev;
     private final JButton btnNext;
-    private final JButton addAreas;
+    private final JButton addData;
 
     public DrawFrame() {
         setTitle("Shape Drawer");
@@ -19,22 +19,22 @@ public class DrawFrame extends JFrame {
         drawPanel = new Main();
         btnPrev = new JButton("<< Previous");
         btnNext = new JButton("Next >>");
-        addAreas = new JButton("Add Sum Of Areas To File");
+        addData = new JButton("Add Data To File");
 
         Font font = new Font("SansSerif", 1, 20);
         btnPrev.setFont(font);
         btnNext.setFont(font);
-        addAreas.setFont(font);
+        addData.setFont(font);
 
         ActionHandler handler = new ActionHandler();
         btnPrev.addActionListener(handler);
         btnNext.addActionListener(handler);
-        addAreas.addActionListener(handler);
+        addData.addActionListener(handler);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(btnPrev);
         buttonPanel.add(btnNext);
-        buttonPanel.add(addAreas);
+        buttonPanel.add(addData);
 
         JPanel colorButtonPanel = new JPanel();
         colorButtonPanel.setBackground(Color.BLACK);
@@ -57,10 +57,7 @@ public class DrawFrame extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
         add(colorButtonPanel, BorderLayout.EAST);
 
-        java.net.URL iconURL = getClass().getResource("/icon.png");
-        if (iconURL != null) {
-            setIconImage(new ImageIcon(iconURL).getImage());
-        }
+        setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());
         setVisible(true);
     }
 
@@ -76,8 +73,8 @@ public class DrawFrame extends JFrame {
                 drawPanel.nextShape();
             } else if (e.getSource() == btnPrev) {
                 drawPanel.prevShape();
-            } else if (e.getSource() == addAreas) {
-                drawPanel.addAreas();
+            } else if (e.getSource() == addData) {
+                drawPanel.addData();
             } else if (e.getSource() instanceof JButton) {
                 drawPanel.setColor(((JButton) e.getSource()).getForeground(), ((JButton) e.getSource()).getText());
             }
