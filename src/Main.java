@@ -98,6 +98,10 @@ public class Main extends JPanel {
         repaint();
     }
 
+    public Color getColor(){
+        return color;
+    }
+
     public void nextShape() {
         if (i < shapesList.size() - 1) {
             i++;
@@ -151,7 +155,7 @@ public class Main extends JPanel {
         }
     }
 
-    public static void playSound(String soundFileName) {
+    private static void playSound(String soundFileName) {
         try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Main.class.getResource(soundFileName)));

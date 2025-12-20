@@ -21,7 +21,7 @@ public class DrawFrame extends JFrame {
         btnNext = new JButton("Next >>");
         addData = new JButton("Add Data To File");
 
-        Font font = new Font("SansSerif", 1, 20);
+        Font font = new Font("SansSerif", Font.BOLD, 20);
         btnPrev.setFont(font);
         btnNext.setFont(font);
         addData.setFont(font);
@@ -38,10 +38,10 @@ public class DrawFrame extends JFrame {
 
         JPanel colorButtonPanel = new JPanel();
         colorButtonPanel.setBackground(Color.BLACK);
-        colorButtonPanel.setLayout(new GridLayout(9, 1, 0, 10));
+        colorButtonPanel.setLayout(new GridLayout(10, 1, 0, 10));
 
-        Color[] colors = {Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.CYAN, Color.GREEN, Color.ORANGE, Color.MAGENTA, Color.GRAY};
-        String[] colorNames = {"White", "Red", "Yellow", "Blue", "Cyan", "Green", "Orange", "Magenta", "Gray"};
+        Color[] colors = {Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE, Color.CYAN, Color.GREEN, Color.ORANGE, Color.MAGENTA, Color.GRAY, Color.WHITE};
+        String[] colorNames = {"White", "Red", "Yellow", "Blue", "Cyan", "Green", "Orange", "Magenta", "Gray", "Custom"};
         for (int i = 0; i < colors.length; i++) {
             JButton btn = new JButton(colorNames[i]);
             btn.addActionListener(handler);
@@ -61,7 +61,7 @@ public class DrawFrame extends JFrame {
         setVisible(true);
     }
 
-    public void setButtonColor(JButton button, Color color) {
+    private void setButtonColor(JButton button, Color color) {
         button.setForeground(color);
         button.setBackground(Color.BLACK);
     }
@@ -75,6 +75,11 @@ public class DrawFrame extends JFrame {
                 drawPanel.prevShape();
             } else if (e.getSource() == addData) {
                 drawPanel.addData();
+            }else if (e.getSource() instanceof JButton  && ((JButton)e.getSource()).getText() == "Custom") {
+                Color newColor = JColorChooser.showDialog(null, "Choose a Color", drawPanel.getColor());
+                if (newColor != null) {
+                    drawPanel.setColor(newColor, "Custom");
+                }
             } else if (e.getSource() instanceof JButton) {
                 drawPanel.setColor(((JButton) e.getSource()).getForeground(), ((JButton) e.getSource()).getText());
             }
