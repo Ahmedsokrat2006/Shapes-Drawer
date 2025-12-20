@@ -60,7 +60,7 @@ public class Main extends JPanel {
         Cube c = (Cube) currentShape;
         c.setColor(colorName);
         int size = (int) c.getSide();
-        size = 3 * size / 2;
+        size = 2 * size;
         g.setColor(color);
 
         g.drawRect(x, y, size, size);
@@ -214,7 +214,7 @@ public class Main extends JPanel {
                                 shapesList.add(c);
                                 totalArea += c.getArea();
                                 totalPerimeter += c.getPerimeter();
-                            } else if (type.equalsIgnoreCase("cube") && val <= 200) {
+                            } else if (type.equalsIgnoreCase("cube") && val <= 150) {
                                 Cube c = new Cube(val);
                                 shapesList.add(c);
                                 cubesCount++;
@@ -224,9 +224,9 @@ public class Main extends JPanel {
                                 totalCubesPerimeter += c.getPerimeter();
                                 totalVolume += c.getVolume();
                             } else {
-                                if(type.equalsIgnoreCase("circle") && val > 150 || type.equalsIgnoreCase("cube") && val > 200){
+                                if(val > 150){
                                     playSound("/Error.wav");
-                                    int n = JOptionPane.showOptionDialog(null, "Large input in shape number " + (i + 1) + " (Max input for cube 200 and circle 150)", "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
+                                    int n = JOptionPane.showOptionDialog(null, "Large input in shape number " + (i + 1) + " (Max input is 150)", "Invalid Input", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[]{"Skip", "Edit"}, 0);
                                     if (n == 1) {
                                         runInputFile();
                                         return;

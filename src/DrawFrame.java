@@ -57,7 +57,7 @@ public class DrawFrame extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
         add(colorButtonPanel, BorderLayout.EAST);
 
-        setIconImage(new ImageIcon(getClass().getResource("icon.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         setVisible(true);
     }
 
@@ -76,7 +76,7 @@ public class DrawFrame extends JFrame {
             } else if (e.getSource() == addData) {
                 drawPanel.addData();
             }else if (e.getSource() instanceof JButton  && ((JButton)e.getSource()).getText() == "Custom") {
-                Color newColor = JColorChooser.showDialog(null, "Choose a Color", drawPanel.getColor());
+                Color newColor = JColorChooser.showDialog(DrawFrame.this, "Choose a Color", drawPanel.getColor());
                 if (newColor != null) {
                     drawPanel.setColor(newColor, "Custom");
                 }
