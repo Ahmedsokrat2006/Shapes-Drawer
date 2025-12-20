@@ -193,8 +193,8 @@ public class Main extends JPanel {
                     inputFileError("Number of Shapes Must Be More than or Equal 2 !!");
                     return;
                 }
-                if(size > 99_999_999){
-                    inputFileError("Max number of shapes is 99,999,999");
+                if(size > 9_999_999){
+                    inputFileError("Max number of shapes is 9,999,999");
                     return;
                 }
                 for (int i = 0; i < size; i++) {
