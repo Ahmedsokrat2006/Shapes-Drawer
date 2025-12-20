@@ -9,6 +9,7 @@ public class DrawFrame extends JFrame {
     private final JButton btnPrev;
     private final JButton btnNext;
     private final JButton addData;
+    private final JButton btnGoTo;
 
     public DrawFrame() {
         setTitle("Shape Drawer");
@@ -17,6 +18,7 @@ public class DrawFrame extends JFrame {
         setLayout(new BorderLayout());
 
         drawPanel = new Main();
+        btnGoTo = new JButton(new ImageIcon(getClass().getResource("/search.png")));
         btnPrev = new JButton("<< Previous");
         btnNext = new JButton("Next >>");
         addData = new JButton("Add Data To File");
@@ -30,8 +32,10 @@ public class DrawFrame extends JFrame {
         btnPrev.addActionListener(handler);
         btnNext.addActionListener(handler);
         addData.addActionListener(handler);
+        btnGoTo.addActionListener(handler);
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(btnGoTo);
         buttonPanel.add(btnPrev);
         buttonPanel.add(btnNext);
         buttonPanel.add(addData);
@@ -57,6 +61,7 @@ public class DrawFrame extends JFrame {
         add(buttonPanel, BorderLayout.SOUTH);
         add(colorButtonPanel, BorderLayout.EAST);
 
+        setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         setVisible(true);
     }
@@ -75,7 +80,9 @@ public class DrawFrame extends JFrame {
                 drawPanel.prevShape();
             } else if (e.getSource() == addData) {
                 drawPanel.addData();
-            }else if (e.getSource() instanceof JButton  && ((JButton)e.getSource()).getText() == "Custom") {
+            } else if (e.getSource() == btnGoTo) {
+                new GoToFrame(drawPanel);
+            } else if (e.getSource() instanceof JButton  && ((JButton) e.getSource()).getText().equals("Custom")) {
                 Color newColor = JColorChooser.showDialog(DrawFrame.this, "Choose a Color", drawPanel.getColor());
                 if (newColor != null) {
                     drawPanel.setColor(newColor, "Custom");

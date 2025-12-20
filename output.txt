@@ -1,0 +1,13 @@
+Cubes count: 1
+Circles count: 1
+
+Sum of all Areas: 4932.19
+Sum of all Perimeters: 424.57
+
+Sum of cubes Area: 3341.76
+Sum of cubes Perimeter: 283.20
+
+Sum of cubes Volume: 13144.26
+
+Sum of circles Area: 1590.43
+Sum of circles Perimeter: 141.37

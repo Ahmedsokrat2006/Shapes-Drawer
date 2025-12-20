@@ -91,6 +91,18 @@ public class Main extends JPanel {
         }
     }
 
+    public void goTo(int n){
+        if(n > 0 && n <= shapesList.size()) {
+            i = n - 1;
+        }
+        else {
+            playSound("/Error.wav");
+            JOptionPane.showMessageDialog(null, "Number must be between 1 and " + shapesList.size(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        repaint();
+    }
+
     public void setColor(Color color, String colorName) {
         this.color = color;
         this.colorName = colorName;
@@ -155,7 +167,7 @@ public class Main extends JPanel {
         }
     }
 
-    private static void playSound(String soundFileName) {
+    public static void playSound(String soundFileName) {
         try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(Main.class.getResource(soundFileName)));
