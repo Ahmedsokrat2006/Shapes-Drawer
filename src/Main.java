@@ -91,16 +91,18 @@ public class Main extends JPanel {
         }
     }
 
-    public void goTo(int n){
+    public boolean goTo(int n){
         if(n > 0 && n <= shapesList.size()) {
             i = n - 1;
         }
         else {
             playSound("/Error.wav");
             JOptionPane.showMessageDialog(null, "Number must be between 1 and " + shapesList.size(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            return false;
         }
+        playSound("/Pew.wav");
         repaint();
+        return true;
     }
 
     public void setColor(Color color, String colorName) {

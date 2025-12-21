@@ -81,6 +81,7 @@ public class DrawFrame extends JFrame {
             } else if (e.getSource() == addData) {
                 drawPanel.addData();
             } else if (e.getSource() == btnGoTo) {
+                Main.playSound("/Punch.wav");
                 new GoToFrame(drawPanel);
             } else if (e.getSource() instanceof JButton  && ((JButton) e.getSource()).getText().equals("Custom")) {
                 Color newColor = JColorChooser.showDialog(DrawFrame.this, "Choose a Color", drawPanel.getColor());

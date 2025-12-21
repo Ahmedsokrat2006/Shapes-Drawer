@@ -14,7 +14,7 @@ public class GoToFrame extends JFrame {
 
         setTitle("Go To");
         setSize(300,150);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new FlowLayout());
 
         shapeNo = new JTextField(5);
@@ -46,8 +46,9 @@ public class GoToFrame extends JFrame {
             if (e.getSource() == btnGo) {
                 try {
                     int n = Integer.parseInt(shapeNo.getText());
-                    drawPanel.goTo(n);
-                    dispose();
+                    if(drawPanel.goTo(n)){
+                        dispose();
+                    }
                 } catch (NumberFormatException E) {
                     Main.playSound("/Error.wav");
                     JOptionPane.showMessageDialog(null, "Invalid Shape Number", "Error", JOptionPane.ERROR_MESSAGE);
